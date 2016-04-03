@@ -1,0 +1,11 @@
+Size of relation 1: 1 pages
+Size of relation 2: 4 pages
+Total number of available pages: 5
+
+Hashing round no: 1
+
+
+Hashing round 1:
+Reading relation 1 , bucket 
+Tuple 1: 20 Mapped to bucket: 1
+Tuple 2: 40 Mapped to bucket: 1

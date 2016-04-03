@@ -19,7 +19,7 @@ bool final_flag=1;
 //take input params from std in.
 void take_input_params()
 {
-	
+	//WF
 	cout<<"Enter record size of first file:\n";
 	cin>>rec_size1;
 	
@@ -39,6 +39,7 @@ void take_input_params()
 //set derived parameters
 void set_derived_params()
 {
+	//WF
 	no_of_buckets = avail_pages - 1;
 	rec_per_page1 = page_size/rec_size1;
 	rec_per_page2 = page_size/rec_size2;
@@ -48,6 +49,7 @@ void set_derived_params()
 //return no. of records in a file
 int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 {
+	//WF
 	ifstream ifs;
 
 	string s=to_string(relation_no);
@@ -87,7 +89,10 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 	while (ifs.good()) 
 	{
 	    ifs>>val;
-	    count++;
+	    if(!ifs.fail())
+	    {
+	    	count++;
+	    }
   	}
 
   	ifs.close();
@@ -97,18 +102,36 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 //returns size in pages
 int get_size(int cur_round, string cur_bucket,int relation_no)
 {
+	//WF
 	int no_of_records,size_in_pages;
 	
 	no_of_records=get_no_of_rec(cur_round,cur_bucket,relation_no);
-	
-	if(no_of_records%rec_per_page1==0)
+	if(relation_no==1)
 	{
-		size_in_pages=no_of_records/rec_per_page1;	
+		int kk=no_of_records*rec_size1;
+		if(kk%page_size==0)
+		{
+			size_in_pages=kk/page_size;	
+		}
+		else
+		{
+			size_in_pages=kk/page_size;
+			size_in_pages++;
+		}
+
 	}
 	else
 	{
-		size_in_pages=no_of_records/rec_per_page1;
-		size_in_pages++;
+		int kk=no_of_records*rec_size2;
+		if(kk%page_size==0)
+		{
+			size_in_pages=kk/page_size;	
+		}
+		else
+		{
+			size_in_pages=kk/page_size;
+			size_in_pages++;
+		}
 	}
 	
 	return size_in_pages;
@@ -117,6 +140,7 @@ int get_size(int cur_round, string cur_bucket,int relation_no)
 //get file data in a vector.
 vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 {
+	//WF
 	ifstream ifs;
 
 	string s=to_string(relation_no);
@@ -156,7 +180,11 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 	while(ifs.good())
 	{
 		ifs>>val;
-		v.push_back(val);
+		if(!ifs.fail())
+	    {
+	    	v.push_back(val);
+	    }
+		
 	}
 	ifs.close();
 	return v;
@@ -165,6 +193,7 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 
 void update_log(int cur_round,string cur_bucket)
 {
+	//WF
 	/*
 		Size of relation 1: 3 pages
 		Size of relation 2: 4 pages
@@ -181,28 +210,28 @@ void update_log(int cur_round,string cur_bucket)
 	f_log<<"Size of relation 2: "<<size_in_pages<<" pages\n";
 
 	f_log<<"Total number of available pages: "<<avail_pages<<endl;
-	f_log<<"\nHashing round no: "<<cur_round<<" , Hashing bucket no: "<<cur_bucket<<endl;
+	f_log<<"\nHashing round no: "<<cur_round<<endl;
 	f_log<<"\n\n";
 }
 
 void update_result(int cur_round, string cur_bucket)
 {
-
+	//WF
 	int size1=get_size(cur_round,cur_bucket,1);
 	int size2=get_size(cur_round,cur_bucket,2);
 
 	int tot_size=size1+size2;
-	f_result<<"\nHashing round no: "<<cur_round<<"\nHashing bucket no: "<<cur_bucket<<endl;
+	f_result<<"Hashing round no: "<<cur_round<<"\nHashing bucket no: "<<cur_bucket<<endl;
 	f_result<<"Total size is "<<tot_size<<" pages.\n";
-	f_result<<"Total available pages are"<<avail_pages<<" pages.\n";
+	f_result<<"Total available pages are "<<avail_pages<<" pages.\n\n";
 }
 
 //find if 2 files can be joined in the main memory
 bool can_be_joined(int cur_round, string cur_bucket)
 {
+	//WF
 	int size1=get_size(cur_round,cur_bucket,1);
 	int size2=get_size(cur_round,cur_bucket,2);
-
 	if((size1+size2)<avail_pages)
 	{
 		return 1;
@@ -217,17 +246,18 @@ bool can_be_joined(int cur_round, string cur_bucket)
 //join 2 files in main memory - needs to checked if possible before by calling can_be_joined
 void join_them(int cur_round, string cur_bucket,vector<int> vec1, vector<int> vec2)
 {
+	//WF
 	int i,j,len1=vec1.size();
 	int len2=vec2.size();
 
 	update_result(cur_round,cur_bucket);
-	f_result<<"Performing in memory join:\nMatching pairs are: \n";
+	f_result<<"Performing in memory join:\nMatching pairs are:\n";
 
 	int ff=0;
 
-	for(i=1;i<len1;i++)
+	for(i=0;i<len1;i++)
 	{
-		for(j=1;j<len2;j++)
+		for(j=0;j<len2;j++)
 		{
 			if(vec1[i]==vec2[j])
 			{
@@ -260,12 +290,12 @@ int find_bucket(int val,int cur_round)
 {
 	int bucket;
 	int sum=get_sum_of_digits(val);
-	bucket=((val + (sum*sum*i))%no_of_buckets) + 1;
+	bucket=((val + (sum*sum*cur_round))%no_of_buckets) + 1;
 	return bucket;
 }
 
 //transfer contents to a secondary storage file
-void transfer(vector<int> vec, int cur_round, string bucket, int relation_no)
+void transfer(vector<int> vec, int cur_round, string cur_bucket, int relation_no)
 {
 	ofstream ofs;
 
@@ -351,29 +381,33 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 	while(ifs.good())
 	{
 		ifs>>val;
-		int buck=find_bucket(val,cur_round);
-		buckets[buck].push_back(val);
-		f_log<<"Tuple "<<tup<<": "<<val<<" Mapped to bucket: "<<cur_bucket+to_string(buck)<<endl;
-		if(relation_no==1)
+		if(!ifs.fail())
 		{
-			if(buckets[buck].size()>=rec_per_page1)
+			int buck=find_bucket(val,cur_round);
+			buckets[buck].push_back(val);
+			f_log<<"Tuple "<<tup<<": "<<val<<" Mapped to bucket: "<<cur_bucket+to_string(buck)<<endl;
+			if(relation_no==1)
 			{
-				transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
-				buckets[buck].clear();
-				f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
+				if(buckets[buck].size()>=rec_per_page1)
+				{
+					transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
+					buckets[buck].clear();
+					f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
+				}
 			}
-		}
-		else
-		{
-			if(buckets[buck].size()>=rec_per_page2)
+			else
 			{
-				transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
-				buckets[buck].clear();
-				f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
-			}	
-		}
+				if(buckets[buck].size()>=rec_per_page2)
+				{
+					transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
+					buckets[buck].clear();
+					f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
+				}	
+			}
 
-		tup++;
+			tup++;	
+		}
+		
 	}
 
 	f_log<<"Done with relation"<<relation_no<<endl;
@@ -406,27 +440,36 @@ void solver(int cur_round, string cur_bucket)
 {
 	update_log(cur_round,cur_bucket);
 	
-	std::vector<int> vec1;
-	std::vector<int> vec2;
-
-	vec1=get_data(cur_round,cur_bucket,1);
-	vec2=get_data(cur_round,cur_bucket,2);
-
-	int size1=vec1.size();
-	int size2=vec2.size();
-
+	int size1=get_no_of_rec(cur_round,cur_bucket,1);
+	int size2=get_no_of_rec(cur_round,cur_bucket,2);
+	cout<<"----"<<size1<<" "<<size2<<endl;
+	
 	if(size1==0 || size2==0)
 	{
+		cout<<"size1size2"<<endl;
+		
 		update_result(cur_round,cur_bucket);
 		f_result<<"No matching tuple. No further processing required!\n";
+		
 		return;
 	}
+	
 	if(can_be_joined(cur_round,cur_bucket))
 	{
+		cout<<"can_be_joined is true"<<endl;
+		std::vector<int> vec1;
+		std::vector<int> vec2;
+
+		vec1=get_data(cur_round,cur_bucket,1);
+		vec2=get_data(cur_round,cur_bucket,2);
+
 		join_them(cur_round,cur_bucket,vec1,vec2);
+		
 	}
 	else
 	{
+		cout<<"can_be_joined is false"<<endl;
+		
 		if(cur_round==max_h_rounds)
 		{
 			final_flag=0;
@@ -445,8 +488,9 @@ void solver(int cur_round, string cur_bucket)
 		{
 			string i2s=to_string(i);
 			solver(cur_round+1,cur_bucket+i2s);
-		}	
+		}
 	}
+	
 }
 
 
