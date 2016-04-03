@@ -3,14 +3,15 @@
 #include <iostream>     // std::cout
 #include <fstream>  
 #include <cstring>
-#include <string>    // std::ifstream
+#include <string>   // std::ifstream
 
 using namespace std;
 
 int main () {
+  
   std::ofstream ofs;
   	
-  ofs.open ("relation1.txt", ios::app);
+  ofs.open ("files/ii.txt");
 
   if(ofs.is_open())
   {
@@ -24,6 +25,6 @@ int main () {
   
   ofs<<"hello"<<endl;
   ofs.close();
-
+  
   return 0;
 }

@@ -1,31 +1,60 @@
 Hashing round no: 2
 Hashing bucket no: 1
+Total size is 4 pages.
+Total available pages are 5 pages.
+
+Performing in memory join:
+Matching pairs are:
+1232 , 1232
+Hashing round no: 2
+Hashing bucket no: 2
 Total size is 2 pages.
 Total available pages are 5 pages.
 
 Performing in memory join:
 Matching pairs are:
-20 , 20
-40 , 40
+..No matching tuples found!..
+Hashing round no: 3
+Hashing bucket no: 31
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 3
+Hashing bucket no: 32
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 4
+Hashing bucket no: 331
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 4
+Hashing bucket no: 332
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 4
+Hashing bucket no: 334
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 3
+Hashing bucket no: 34
+Total size is 2 pages.
+Total available pages are 5 pages.
+
+Performing in memory join:
+Matching pairs are:
+1 , 1
 Hashing round no: 2
-Hashing bucket no: 2
+Hashing bucket no: 4
 Total size is 1 pages.
 Total available pages are 5 pages.
 
 No matching tuple. No further processing required!
-Hashing round no: 2
-Hashing bucket no: 3
-Total size is 2 pages.
-Total available pages are 5 pages.
-
-Performing in memory join:
-Matching pairs are:
-25 , 25
-Hashing round no: 2
-Hashing bucket no: 4
-Total size is 3 pages.
-Total available pages are 5 pages.
-
-Performing in memory join:
-Matching pairs are:
-15 , 15

@@ -59,14 +59,17 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[1000]="relation";
+	
 	if(cur_round==0)
 	{
+		char str[1000]="relation";
 		strcat(str,ss);
 		strcat(str,".txt");
+		ifs.open(str);
 	}
 	else
 	{
+		char str[1000]="files/relation";
 		strcat(str,ss);
 
 		string s1=to_string(cur_round);
@@ -84,9 +87,11 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 		strcat(str,".bucket");
 		strcat(str,buck);
 		strcat(str,".txt");
+		ifs.open(str);
 		//cout<<"papa - "<<str<<endl;
 	}
-	ifs.open(str);
+
+	
 
 	int count=0,val;
 	while (ifs.good()) 
@@ -153,14 +158,17 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[1000]="relation";
+	
 	if(cur_round==0)
 	{
+		char str[1000]="relation";
 		strcat(str,ss);
 		strcat(str,".txt");
+		ifs.open(str);
 	}
 	else
 	{
+		char str[1000]="files/relation";
 		strcat(str,ss);
 
 		string s1=to_string(cur_round);
@@ -178,8 +186,9 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 		strcat(str,".bucket");
 		strcat(str,buck);
 		strcat(str,".txt");
+		ifs.open(str);
 	}
-	ifs.open(str);
+	
 	std::vector<int> v;
 	int val;
 	while(ifs.good())
@@ -311,7 +320,7 @@ void transfer(vector<int> vec, int cur_round, string cur_bucket, int relation_no
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[1000]="relation";
+	char str[1000]="files/relation";
 
 	strcat(str,ss);
 
@@ -361,14 +370,17 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[]="relation";
+	
 	if(cur_round==0)
 	{
+		char str[1000]="relation";
 		strcat(str,ss);
 		strcat(str,".txt");
+		ifs.open(str);
 	}
 	else
 	{
+		char str[1000]="files/relation";
 		strcat(str,ss);
 
 		string s1=to_string(cur_round);
@@ -386,8 +398,9 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 		strcat(str,".bucket");
 		strcat(str,buck);
 		strcat(str,".txt");
+		ifs.open(str);
 	}
-	ifs.open(str);
+	
 	cur_round++;
 	int val;
 	vector< vector<int> > buckets(no_of_buckets+1);
@@ -476,6 +489,7 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 */
 void solver(int cur_round, string cur_bucket)
 {
+	f_log<<"cur round is "<<cur_round<<endl;
 	update_log(cur_round,cur_bucket);
 	
 	int size1=get_no_of_rec(cur_round,cur_bucket,1);
@@ -506,7 +520,7 @@ void solver(int cur_round, string cur_bucket)
 	}
 	else
 	{
-		cout<<"can_be_joined is false"<<endl;
+		cout<<"can_be_joined is false "<<cur_bucket<<endl;
 		
 		if(cur_round>max_h_rounds)
 		{
@@ -516,8 +530,9 @@ void solver(int cur_round, string cur_bucket)
 			return;
 		}
 		//create buckets for both files having a file corresponding to each bucket!
-		f_log<<"Hashing round "<<cur_round<<":"<<endl;
+		f_log<<"Hashing round papa"<<cur_round<<":"<<endl;
 		create_buckets(cur_round,cur_bucket,1);
+		
 		create_buckets(cur_round,cur_bucket,2);
 		
 		//call recursively for each bucket
@@ -528,6 +543,7 @@ void solver(int cur_round, string cur_bucket)
 			string i2s=to_string(i);
 			solver(cur_round+1,cur_bucket+i2s);
 		}
+		
 	}
 	
 }
