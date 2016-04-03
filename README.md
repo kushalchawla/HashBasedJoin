@@ -15,11 +15,11 @@ Hash function format for different rounds. (for now)
 no_of_buckets are from 1 to ( page_size-1 ).
 
 H_i : hash function for round i 
-H_i(val) = (val +((sum of digits)^2)*i) mod no_of_buckets
+H_i(val) = (val + ((sum of digits)^2)*i) mod no_of_buckets
 
 - Only 1 column in input relation files, which contains integer values (int)
 - Type of join - Equi join , where for an input A, a matching pair means A,A
-- Output files - output_log.txt, output_pairs.txt
+- Output files - output_log.txt, output_result.txt
 
 - intermediate files naming format --
 
@@ -28,3 +28,5 @@ Note that round i file is created as an output after round 2.
 i.e. First time splitting gives round 1 files. 
 
 - This is only a simulation. 
+
+Protocol.. create all files for all buckets even if they are empty!!!
