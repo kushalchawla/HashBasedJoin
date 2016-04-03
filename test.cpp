@@ -8,18 +8,11 @@
 using namespace std;
 
 int main () {
-  std::ifstream ifs;
-  	string s=to_string(1);
+  std::ofstream ofs;
+  	
+  ofs.open ("relation1.txt", ios::app);
 
-  	char *a=new char[s.size()+1];
-	a[s.size()]=0;
-	memcpy(a,s.c_str(),s.size());
-  char str[]="relation";
-  strcat(str,a);
-  strcat(str,".txt");
-  ifs.open (str);
-  
-  if(ifs.is_open())
+  if(ofs.is_open())
   {
   	cout<<"yes its open"<<endl;
   }
@@ -28,12 +21,9 @@ int main () {
   	cout<<"not open"<<endl;
   }
   int val;
-  while (ifs.good()) {
-    ifs>>val;
-    std::cout << val<<endl;
-  }
-
-  ifs.close();
+  
+  ofs<<"hello"<<endl;
+  ofs.close();
 
   return 0;
 }

@@ -267,7 +267,41 @@ int find_bucket(int val,int cur_round)
 //transfer contents to a secondary storage file
 void transfer(vector<int> vec, int cur_round, string bucket, int relation_no)
 {
+	ofstream ofs;
 
+	string s=to_string(relation_no);
+	char *ss=new char[s.size()+1];
+	ss[s.size()]=0;
+	memcpy(ss,s.c_str(),s.size());
+
+	char str[]="relation";
+
+	strcat(str,ss);
+
+	string s1=to_string(cur_round);
+	char *rd=new char[s1.size()+1];
+	rd[s1.size()]=0;
+	memcpy(rd,s1.c_str(),s1.size());
+
+	string s2=cur_bucket;
+	char *buck=new char[s2.size()+1];
+	buck[s2.size()]=0;
+	memcpy(buck,s2.c_str(),s2.size());
+
+	strcat(str,".round");
+	strcat(str,rd);
+	strcat(str,".bucket");
+	strcat(str,buck);
+	strcat(str,".txt");
+	
+	ofs.open(str,ios::app);
+	int len=vec.size();
+	for(int i=0;i<len;i++)
+	{
+		ofs<<vec[i]<<endl;
+	}
+
+	ofs.close();
 }
 
 
