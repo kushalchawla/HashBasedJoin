@@ -20,7 +20,11 @@ H_i(val) = NOT DONE YET
 - Only 1 column in input relation files, which contains integer values (int)
 - Type of join - Equi join , where for an input A, a matching pair means A,A
 - Output files - output_log.txt, output_pairs.txt
+
 - intermediate files naming format --
-format example - relation1.round2.bucket12.txt - splitting bucket 1 of round 1 in relation 1 to bucket 2 in round 2 creates this file. 
+
+format example - relation1.round2.bucket12.txt - splitting bucket 1 of round 1 in relation 1 to bucket 2 in round 2 creates this file.
+Note that round i file is created as an output after round 2.
+i.e. First time splitting gives round 1 files. 
 
 - This is only a simulation. 
