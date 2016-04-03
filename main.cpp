@@ -267,7 +267,7 @@ int find_bucket(int val,int cur_round)
 //transfer contents to a secondary storage file
 void transfer(vector<int> vec, int cur_round, string bucket, int relation_no)
 {
-		
+
 }
 
 
@@ -443,8 +443,10 @@ int main()
 	{
 		cout<<"Hash based join is unsuccessful !"<<endl;
 	}
-	cout<<"Hash based join is successfully done !"<<endl;
-
+	else
+	{
+		cout<<"Hash based join is successfully done !"<<endl;	
+	}
 	f_log.close();
 	f_result.close();
 
