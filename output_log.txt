@@ -1,4 +1,4 @@
-Size of relation 1: 1 pages
+Size of relation 1: 2 pages
 Size of relation 2: 4 pages
 Total number of available pages: 5
 
@@ -9,3 +9,74 @@ Hashing round 1:
 Reading relation 1 , bucket 
 Tuple 1: 20 Mapped to bucket: 1
 Tuple 2: 40 Mapped to bucket: 1
+Page for bucket 1 full. Flushed to secondary storage.
+Tuple 3: 15 Mapped to bucket: 4
+Tuple 4: 25 Mapped to bucket: 3
+Leftover data written to secondary storage
+
+Done with relation1
+Created following files.
+aa is 2
+relation1.round1.bucket1: 1 pages
+aa is 0
+relation1.round1.bucket2: 0 pages
+aa is 1
+relation1.round1.bucket3: 1 pages
+aa is 1
+relation1.round1.bucket4: 1 pages
+
+
+Reading relation 2 , bucket 
+Tuple 1: 30 Mapped to bucket: 3
+Tuple 2: 34 Mapped to bucket: 4
+Tuple 3: 36 Mapped to bucket: 2
+Tuple 4: 38 Mapped to bucket: 4
+Tuple 5: 40 Mapped to bucket: 1
+Tuple 6: 15 Mapped to bucket: 4
+Page for bucket 4 full. Flushed to secondary storage.
+Tuple 7: 25 Mapped to bucket: 3
+Tuple 8: 14 Mapped to bucket: 4
+Tuple 9: 20 Mapped to bucket: 1
+Tuple 10: 31 Mapped to bucket: 4
+Leftover data written to secondary storage
+
+Done with relation2
+Created following files.
+aa is 2
+relation2.round1.bucket1: 1 pages
+aa is 1
+relation2.round1.bucket2: 1 pages
+aa is 2
+relation2.round1.bucket3: 1 pages
+aa is 5
+relation2.round1.bucket4: 2 pages
+
+
+Size of relation 1: 1 pages
+Size of relation 2: 1 pages
+Total number of available pages: 5
+
+Hashing round no: 2
+
+
+Size of relation 1: 0 pages
+Size of relation 2: 1 pages
+Total number of available pages: 5
+
+Hashing round no: 2
+
+
+Size of relation 1: 1 pages
+Size of relation 2: 1 pages
+Total number of available pages: 5
+
+Hashing round no: 2
+
+
+Size of relation 1: 1 pages
+Size of relation 2: 2 pages
+Total number of available pages: 5
+
+Hashing round no: 2
+
+

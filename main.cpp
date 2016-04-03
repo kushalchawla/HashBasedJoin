@@ -50,6 +50,8 @@ void set_derived_params()
 int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 {
 	//WF
+	cout<<"here - "<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
+	cur_round--;
 	ifstream ifs;
 
 	string s=to_string(relation_no);
@@ -57,8 +59,8 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[]="relation";
-	if(cur_round==1)
+	char str[1000]="relation";
+	if(cur_round==0)
 	{
 		strcat(str,ss);
 		strcat(str,".txt");
@@ -82,6 +84,7 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 		strcat(str,".bucket");
 		strcat(str,buck);
 		strcat(str,".txt");
+		//cout<<"papa - "<<str<<endl;
 	}
 	ifs.open(str);
 
@@ -141,6 +144,8 @@ int get_size(int cur_round, string cur_bucket,int relation_no)
 vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 {
 	//WF
+	cur_round--;
+	cout<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
 	ifstream ifs;
 
 	string s=to_string(relation_no);
@@ -148,8 +153,8 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[]="relation";
-	if(cur_round==1)
+	char str[1000]="relation";
+	if(cur_round==0)
 	{
 		strcat(str,ss);
 		strcat(str,".txt");
@@ -297,21 +302,25 @@ int find_bucket(int val,int cur_round)
 //transfer contents to a secondary storage file
 void transfer(vector<int> vec, int cur_round, string cur_bucket, int relation_no)
 {
+	cout<<vec.size()<<" "<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
+	
 	ofstream ofs;
-
+	
 	string s=to_string(relation_no);
 	char *ss=new char[s.size()+1];
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
-	char str[]="relation";
+	char str[1000]="relation";
 
 	strcat(str,ss);
+
 
 	string s1=to_string(cur_round);
 	char *rd=new char[s1.size()+1];
 	rd[s1.size()]=0;
 	memcpy(rd,s1.c_str(),s1.size());
+
 
 	string s2=cur_bucket;
 	char *buck=new char[s2.size()+1];
@@ -319,19 +328,26 @@ void transfer(vector<int> vec, int cur_round, string cur_bucket, int relation_no
 	memcpy(buck,s2.c_str(),s2.size());
 
 	strcat(str,".round");
+	
 	strcat(str,rd);
+	
 	strcat(str,".bucket");
+	
 	strcat(str,buck);
 	strcat(str,".txt");
 	
 	ofs.open(str,ios::app);
+	
 	int len=vec.size();
+	//cout<<"len is "<<len<<endl;
+	
 	for(int i=0;i<len;i++)
 	{
 		ofs<<vec[i]<<endl;
 	}
-
+	
 	ofs.close();
+	
 }
 
 
@@ -339,14 +355,14 @@ void transfer(vector<int> vec, int cur_round, string cur_bucket, int relation_no
 void create_buckets(int cur_round, string cur_bucket,int relation_no)
 {
 	ifstream ifs;
-
+	cur_round--;
 	string s=to_string(relation_no);
 	char *ss=new char[s.size()+1];
 	ss[s.size()]=0;
 	memcpy(ss,s.c_str(),s.size());
 
 	char str[]="relation";
-	if(cur_round==1)
+	if(cur_round==0)
 	{
 		strcat(str,ss);
 		strcat(str,".txt");
@@ -372,53 +388,75 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 		strcat(str,".txt");
 	}
 	ifs.open(str);
-
+	cur_round++;
 	int val;
 	vector< vector<int> > buckets(no_of_buckets+1);
 
 	f_log<<"Reading relation "<<relation_no<<" , bucket "<<cur_bucket<<endl;
 	int tup=1;
+	
 	while(ifs.good())
 	{
 		ifs>>val;
+		cout<<"---------"<<endl;
 		if(!ifs.fail())
-		{
+		{	
+			cout<<"1";
 			int buck=find_bucket(val,cur_round);
 			buckets[buck].push_back(val);
 			f_log<<"Tuple "<<tup<<": "<<val<<" Mapped to bucket: "<<cur_bucket+to_string(buck)<<endl;
+			
 			if(relation_no==1)
 			{
+				cout<<"2"<<endl;
 				if(buckets[buck].size()>=rec_per_page1)
 				{
+					cout<<"here"<<endl;
 					transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
+						cout<<"there"<<endl;
 					buckets[buck].clear();
 					f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
 				}
 			}
 			else
 			{
+				cout<<"3"<<endl;
 				if(buckets[buck].size()>=rec_per_page2)
 				{
 					transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
 					buckets[buck].clear();
 					f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
-				}	
+				}
 			}
-
+			
 			tup++;	
 		}
 		
 	}
+	int pp;
+	for(int pp=1;pp<=no_of_buckets;pp++)
+	{
+		transfer(buckets[pp], cur_round, cur_bucket+to_string(pp), relation_no);
+		buckets[pp].clear();
+	}
 
-	f_log<<"Done with relation"<<relation_no<<endl;
+	f_log<<"Leftover data written to secondary storage\n";
+
+	f_log<<"\nDone with relation"<<relation_no<<endl;
 	f_log<<"Created following files.\n";
 	int kk;
+	cout<<"hhhhhhhhhhhhh\n";
 	for(kk=1;kk<=no_of_buckets;kk++)
 	{
-		int size_in_pages;
-		size_in_pages=get_size(cur_round,cur_bucket+to_string(kk),relation_no);
+		int size_in_pages=0;
+		size_in_pages=get_size(cur_round+1,cur_bucket+to_string(kk),relation_no);
+		cout<<"papa\n";
+		int aa=get_no_of_rec(cur_round+1,cur_bucket+to_string(kk),relation_no);
+		f_log<<"aa is "<<aa<<endl;
 		f_log<<"relation"<<relation_no<<".round"<<cur_round<<".bucket"<<cur_bucket+to_string(kk)<<": "<<size_in_pages<<" pages\n";
 	}
+
+	f_log<<"\n\n";
 	ifs.close();
 }
 
@@ -470,7 +508,7 @@ void solver(int cur_round, string cur_bucket)
 	{
 		cout<<"can_be_joined is false"<<endl;
 		
-		if(cur_round==max_h_rounds)
+		if(cur_round>max_h_rounds)
 		{
 			final_flag=0;
 			cout<<"Maximum rounds reached! Cannot perform join at bucket : "<<cur_bucket<<endl;
@@ -483,6 +521,7 @@ void solver(int cur_round, string cur_bucket)
 		create_buckets(cur_round,cur_bucket,2);
 		
 		//call recursively for each bucket
+		
 		int i;
 		for(i=1;i<=no_of_buckets;i++)
 		{

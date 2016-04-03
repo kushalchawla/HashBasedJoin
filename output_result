@@ -1,0 +1,31 @@
+Hashing round no: 2
+Hashing bucket no: 1
+Total size is 2 pages.
+Total available pages are 5 pages.
+
+Performing in memory join:
+Matching pairs are:
+20 , 20
+40 , 40
+Hashing round no: 2
+Hashing bucket no: 2
+Total size is 1 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 2
+Hashing bucket no: 3
+Total size is 2 pages.
+Total available pages are 5 pages.
+
+Performing in memory join:
+Matching pairs are:
+25 , 25
+Hashing round no: 2
+Hashing bucket no: 4
+Total size is 3 pages.
+Total available pages are 5 pages.
+
+Performing in memory join:
+Matching pairs are:
+15 , 15
