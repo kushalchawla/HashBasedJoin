@@ -1,2 +1,26 @@
 # HashBasedJoin
 Equi Join between 2 relations using hashing technique to fit buckets in main memory
+
+Assumptions and specifications of hash based join code - 
+
+- Lanugage used - C++11
+- input files -	relation1.txt, relation2.txt
+- input parameters - 
+record size- int rec_size1,rec_size2
+page size- int page_size
+# available pages - int avail_pages
+maximum no. of hashing rounds - int max_h_rounds
+
+Hash function format for different rounds. (for now) 
+no_of_buckets are from 1 to ( page_size-1 ).
+
+H_i : hash function for round i 
+H_i(val) = NOT DONE YET  
+
+- Only 1 column in input relation files, which contains integer values (int)
+- Type of join - Equi join , where for an input A, a matching pair means A,A
+- Output files - output_log.txt, output_pairs.txt
+- intermediate files naming format --
+format example - relation1.round2.bucket12.txt - splitting bucket 1 of round 1 in relation 1 to bucket 2 in round 2 creates this file. 
+
+- This is only a simulation. 
