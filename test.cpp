@@ -1,12 +1,24 @@
 //for testing purposes
 // reading the content of a text file.
 #include <iostream>     // std::cout
-#include <fstream>      // std::ifstream
+#include <fstream>  
+#include <cstring>
+#include <string>    // std::ifstream
+
 using namespace std;
+
 int main () {
   std::ifstream ifs;
+  	string s=to_string(1);
 
-  ifs.open ("relation1.txt");
+  	char *a=new char[s.size()+1];
+	a[s.size()]=0;
+	memcpy(a,s.c_str(),s.size());
+  char str[]="relation";
+  strcat(str,a);
+  strcat(str,".txt");
+  ifs.open (str);
+  
   if(ifs.is_open())
   {
   	cout<<"yes its open"<<endl;
