@@ -6,7 +6,7 @@ Total number of available pages: 5
 Hashing round no: 1
 
 
-Hashing round papa1:
+Hashing round 1:
 Reading relation 1 , bucket 
 Tuple 1: 1 Mapped to bucket: 3
 Tuple 2: 23 Mapped to bucket: 1
@@ -32,13 +32,9 @@ Leftover data written to secondary storage
 
 Done with relation1
 Created following files.
-aa is 6
 relation1.round1.bucket1: 3 pages
-aa is 1
 relation1.round1.bucket2: 1 pages
-aa is 7
 relation1.round1.bucket3: 4 pages
-aa is 0
 relation1.round1.bucket4: 0 pages
 
 
@@ -62,13 +58,9 @@ Leftover data written to secondary storage
 
 Done with relation2
 Created following files.
-aa is 1
 relation2.round1.bucket1: 1 pages
-aa is 3
 relation2.round1.bucket2: 1 pages
-aa is 6
 relation2.round1.bucket3: 2 pages
-aa is 2
 relation2.round1.bucket4: 1 pages
 
 
@@ -96,7 +88,7 @@ Total number of available pages: 5
 Hashing round no: 2
 
 
-Hashing round papa2:
+Hashing round 2:
 Reading relation 1 , bucket 3
 Tuple 1: 1 Mapped to bucket: 34
 Tuple 2: 5234 Mapped to bucket: 33
@@ -112,13 +104,9 @@ Leftover data written to secondary storage
 
 Done with relation1
 Created following files.
-aa is 0
 relation1.round2.bucket31: 0 pages
-aa is 0
 relation1.round2.bucket32: 0 pages
-aa is 5
 relation1.round2.bucket33: 3 pages
-aa is 2
 relation1.round2.bucket34: 1 pages
 
 
@@ -134,13 +122,9 @@ Leftover data written to secondary storage
 
 Done with relation2
 Created following files.
-aa is 0
 relation2.round2.bucket31: 0 pages
-aa is 0
 relation2.round2.bucket32: 0 pages
-aa is 4
 relation2.round2.bucket33: 2 pages
-aa is 2
 relation2.round2.bucket34: 1 pages
 
 
@@ -168,7 +152,7 @@ Total number of available pages: 5
 Hashing round no: 3
 
 
-Hashing round papa3:
+Hashing round 3:
 Reading relation 1 , bucket 33
 Tuple 1: 5234 Mapped to bucket: 333
 Tuple 2: 6 Mapped to bucket: 333
@@ -181,13 +165,9 @@ Leftover data written to secondary storage
 
 Done with relation1
 Created following files.
-aa is 0
 relation1.round3.bucket331: 0 pages
-aa is 0
 relation1.round3.bucket332: 0 pages
-aa is 5
 relation1.round3.bucket333: 3 pages
-aa is 0
 relation1.round3.bucket334: 0 pages
 
 
@@ -201,13 +181,9 @@ Leftover data written to secondary storage
 
 Done with relation2
 Created following files.
-aa is 0
 relation2.round3.bucket331: 0 pages
-aa is 0
 relation2.round3.bucket332: 0 pages
-aa is 4
 relation2.round3.bucket333: 2 pages
-aa is 0
 relation2.round3.bucket334: 0 pages
 
 

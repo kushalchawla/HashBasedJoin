@@ -50,7 +50,7 @@ void set_derived_params()
 int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 {
 	//WF
-	cout<<"here - "<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
+	//cout<<"here - "<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
 	cur_round--;
 	ifstream ifs;
 
@@ -88,7 +88,6 @@ int get_no_of_rec(int cur_round, string cur_bucket,int relation_no)
 		strcat(str,buck);
 		strcat(str,".txt");
 		ifs.open(str);
-		//cout<<"papa - "<<str<<endl;
 	}
 
 	
@@ -150,7 +149,7 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 {
 	//WF
 	cur_round--;
-	cout<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
+	//cout<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
 	ifstream ifs;
 
 	string s=to_string(relation_no);
@@ -311,7 +310,7 @@ int find_bucket(int val,int cur_round)
 //transfer contents to a secondary storage file
 void transfer(vector<int> vec, int cur_round, string cur_bucket, int relation_no)
 {
-	cout<<vec.size()<<" "<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
+	//cout<<vec.size()<<" "<<cur_round<<" "<<cur_bucket<<" "<<relation_no<<endl;
 	
 	ofstream ofs;
 	
@@ -411,29 +410,29 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 	while(ifs.good())
 	{
 		ifs>>val;
-		cout<<"---------"<<endl;
+		//cout<<"---------"<<endl;
 		if(!ifs.fail())
 		{	
-			cout<<"1";
+			//cout<<"1";
 			int buck=find_bucket(val,cur_round);
 			buckets[buck].push_back(val);
 			f_log<<"Tuple "<<tup<<": "<<val<<" Mapped to bucket: "<<cur_bucket+to_string(buck)<<endl;
 			
 			if(relation_no==1)
 			{
-				cout<<"2"<<endl;
+				//cout<<"2"<<endl;
 				if(buckets[buck].size()>=rec_per_page1)
 				{
-					cout<<"here"<<endl;
+					//cout<<"here"<<endl;
 					transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
-						cout<<"there"<<endl;
+						//cout<<"there"<<endl;
 					buckets[buck].clear();
 					f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
 				}
 			}
 			else
 			{
-				cout<<"3"<<endl;
+				//cout<<"3"<<endl;
 				if(buckets[buck].size()>=rec_per_page2)
 				{
 					transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
@@ -458,14 +457,14 @@ void create_buckets(int cur_round, string cur_bucket,int relation_no)
 	f_log<<"\nDone with relation"<<relation_no<<endl;
 	f_log<<"Created following files.\n";
 	int kk;
-	cout<<"hhhhhhhhhhhhh\n";
+	//cout<<"hhhhhhhhhhhhh\n";
 	for(kk=1;kk<=no_of_buckets;kk++)
 	{
 		int size_in_pages=0;
 		size_in_pages=get_size(cur_round+1,cur_bucket+to_string(kk),relation_no);
-		cout<<"papa\n";
-		int aa=get_no_of_rec(cur_round+1,cur_bucket+to_string(kk),relation_no);
-		f_log<<"aa is "<<aa<<endl;
+		
+		//int aa=get_no_of_rec(cur_round+1,cur_bucket+to_string(kk),relation_no);
+		//f_log<<"aa is "<<aa<<endl;
 		f_log<<"relation"<<relation_no<<".round"<<cur_round<<".bucket"<<cur_bucket+to_string(kk)<<": "<<size_in_pages<<" pages\n";
 	}
 
@@ -494,11 +493,11 @@ void solver(int cur_round, string cur_bucket)
 	
 	int size1=get_no_of_rec(cur_round,cur_bucket,1);
 	int size2=get_no_of_rec(cur_round,cur_bucket,2);
-	cout<<"----"<<size1<<" "<<size2<<endl;
+	//cout<<"----"<<size1<<" "<<size2<<endl;
 	
 	if(size1==0 || size2==0)
 	{
-		cout<<"size1size2"<<endl;
+		//cout<<"size1size2"<<endl;
 		
 		update_result(cur_round,cur_bucket);
 		f_result<<"No matching tuple. No further processing required!\n";
@@ -508,7 +507,7 @@ void solver(int cur_round, string cur_bucket)
 	
 	if(can_be_joined(cur_round,cur_bucket))
 	{
-		cout<<"can_be_joined is true"<<endl;
+		//cout<<"can_be_joined is true"<<endl;
 		std::vector<int> vec1;
 		std::vector<int> vec2;
 
@@ -520,7 +519,7 @@ void solver(int cur_round, string cur_bucket)
 	}
 	else
 	{
-		cout<<"can_be_joined is false "<<cur_bucket<<endl;
+		//cout<<"can_be_joined is false "<<cur_bucket<<endl;
 		
 		if(cur_round>max_h_rounds)
 		{
@@ -530,7 +529,7 @@ void solver(int cur_round, string cur_bucket)
 			return;
 		}
 		//create buckets for both files having a file corresponding to each bucket!
-		f_log<<"Hashing round papa"<<cur_round<<":"<<endl;
+		f_log<<"Hashing round "<<cur_round<<":"<<endl;
 		create_buckets(cur_round,cur_bucket,1);
 		
 		create_buckets(cur_round,cur_bucket,2);
