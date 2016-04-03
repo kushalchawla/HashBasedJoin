@@ -158,7 +158,7 @@ vector<int> get_data(int cur_round, string cur_bucket,int relation_no)
 		ifs>>val;
 		v.push_back(val);
 	}
-
+	ifs.close();
 	return v;
 
 }
@@ -244,10 +244,114 @@ void join_them(int cur_round, string cur_bucket,vector<int> vec1, vector<int> ve
 
 }
 
-//create buckets for both the files and fill it into corresponding files  
-void create_buckets(int cur_round, string cur_bucket)
+int get_sum_of_digits(int val)
 {
+	int sum=0,n=val;
+	while(n%10>0)
+	{
+		sum=sum + n%10;
+		n=n/10;
+	}
+	return sum;
+}
 
+//find bucket using hashing
+int find_bucket(int val,int cur_round)
+{
+	int bucket;
+	int sum=get_sum_of_digits(val);
+	bucket=((val + (sum*sum*i))%no_of_buckets) + 1;
+	return bucket;
+}
+
+//transfer contents to a secondary storage file
+void transfer(vector<int> vec, int cur_round, string bucket, int relation_no)
+{
+		
+}
+
+
+//create buckets for both the files and fill it into corresponding files  
+void create_buckets(int cur_round, string cur_bucket,int relation_no)
+{
+	ifstream ifs;
+
+	string s=to_string(relation_no);
+	char *ss=new char[s.size()+1];
+	ss[s.size()]=0;
+	memcpy(ss,s.c_str(),s.size());
+
+	char str[]="relation";
+	if(cur_round==1)
+	{
+		strcat(str,ss);
+		strcat(str,".txt");
+	}
+	else
+	{
+		strcat(str,ss);
+
+		string s1=to_string(cur_round);
+		char *rd=new char[s1.size()+1];
+		rd[s1.size()]=0;
+		memcpy(rd,s1.c_str(),s1.size());
+
+		string s2=cur_bucket;
+		char *buck=new char[s2.size()+1];
+		buck[s2.size()]=0;
+		memcpy(buck,s2.c_str(),s2.size());
+
+		strcat(str,".round");
+		strcat(str,rd);
+		strcat(str,".bucket");
+		strcat(str,buck);
+		strcat(str,".txt");
+	}
+	ifs.open(str);
+
+	int val;
+	vector< vector<int> > buckets(no_of_buckets+1);
+
+	f_log<<"Reading relation "<<relation_no<<" , bucket "<<cur_bucket<<endl;
+	int tup=1;
+	while(ifs.good())
+	{
+		ifs>>val;
+		int buck=find_bucket(val,cur_round);
+		buckets[buck].push_back(val);
+		f_log<<"Tuple "<<tup<<": "<<val<<" Mapped to bucket: "<<cur_bucket+to_string(buck)<<endl;
+		if(relation_no==1)
+		{
+			if(buckets[buck].size()>=rec_per_page1)
+			{
+				transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
+				buckets[buck].clear();
+				f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
+			}
+		}
+		else
+		{
+			if(buckets[buck].size()>=rec_per_page2)
+			{
+				transfer(buckets[buck], cur_round, cur_bucket+to_string(buck), relation_no);
+				buckets[buck].clear();
+				f_log<<"Page for bucket "<<cur_bucket+to_string(buck)<<" full. Flushed to secondary storage.\n";
+			}	
+		}
+
+		tup++;
+	}
+
+	f_log<<"Done with relation"<<relation_no<<endl;
+	f_log<<"Created following files.\n";
+	int kk;
+	for(kk=1;kk<=no_of_buckets;kk++)
+	{
+		int size_in_pages;
+		size_in_pages=get_size(cur_round,cur_bucket+to_string(kk),relation_no);
+		f_log<<"relation"<<relation_no<<".round"<<cur_round<<".bucket"<<cur_bucket+to_string(kk)<<": "<<size_in_pages<<" pages\n";
+	}
+	ifs.close();
 }
 
 /*
@@ -297,7 +401,9 @@ void solver(int cur_round, string cur_bucket)
 			return;
 		}
 		//create buckets for both files having a file corresponding to each bucket!
-		create_buckets(cur_round,cur_bucket);
+		f_log<<"Hashing round "<<cur_round<<":"<<endl;
+		create_buckets(cur_round,cur_bucket,1);
+		create_buckets(cur_round,cur_bucket,2);
 		
 		//call recursively for each bucket
 		int i;

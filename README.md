@@ -15,7 +15,7 @@ Hash function format for different rounds. (for now)
 no_of_buckets are from 1 to ( page_size-1 ).
 
 H_i : hash function for round i 
-H_i(val) = (val + ((sum of digits)^2)*i) mod no_of_buckets
+H_i(val) = (val + ((sum of digits)^2)*i) mod no_of_buckets + 1
 
 - Only 1 column in input relation files, which contains integer values (int)
 - Type of join - Equi join , where for an input A, a matching pair means A,A
