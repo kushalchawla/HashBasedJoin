@@ -1,6 +1,13 @@
 # HashBasedJoin
 Equi Join between 2 relations using hashing technique to fit buckets in main memory
 
+REQUIREMENTS - 
+1- PLEASE CREATE AN EMPTY FOLDER WITH NAME "files" BEFORE RUNNING THE CODE, IN THE SAME DIRECTORY IN WHICH CODE RESIDES. THE INTERMEDIATE FILES ARE CREATED IN THIS FOLDER. OTHERWISE, THESE FILES WOULD NOT BE CREATED AND WILL RESULT IN UNEXPECTED OUTPUT. 
+
+2- INPUT FILES ARE "relation1.txt" AND "relation2.txt".
+OTHER PARAMETERS CAN BE GIVEN FROM STANDARD INPUT OR PUT INTO A FILE (- "input.txt" as we have done) and the input from that file can be given like ./a.out < input.txt
+
+
 Assumptions and specifications of hash based join code - 
 
 - Lanugage used - C++11

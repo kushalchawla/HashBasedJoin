@@ -1,19 +1,15 @@
 Hashing round no: 2
 Hashing bucket no: 1
-Total size is 4 pages.
+Total size is 0 pages.
 Total available pages are 5 pages.
 
-Performing in memory join:
-Matching pairs are:
-1232 , 1232
+No matching tuple. No further processing required!
 Hashing round no: 2
 Hashing bucket no: 2
-Total size is 2 pages.
+Total size is 0 pages.
 Total available pages are 5 pages.
 
-Performing in memory join:
-Matching pairs are:
-..No matching tuples found!..
+No matching tuple. No further processing required!
 Hashing round no: 3
 Hashing bucket no: 31
 Total size is 0 pages.
@@ -26,35 +22,33 @@ Total size is 0 pages.
 Total available pages are 5 pages.
 
 No matching tuple. No further processing required!
-Hashing round no: 4
-Hashing bucket no: 331
-Total size is 0 pages.
-Total available pages are 5 pages.
-
-No matching tuple. No further processing required!
-Hashing round no: 4
-Hashing bucket no: 332
-Total size is 0 pages.
-Total available pages are 5 pages.
-
-No matching tuple. No further processing required!
-Hashing round no: 4
-Hashing bucket no: 334
-Total size is 0 pages.
-Total available pages are 5 pages.
-
-No matching tuple. No further processing required!
 Hashing round no: 3
-Hashing bucket no: 34
-Total size is 2 pages.
+Hashing bucket no: 33
+Total size is 0 pages.
 Total available pages are 5 pages.
 
-Performing in memory join:
-Matching pairs are:
-1 , 1
+No matching tuple. No further processing required!
+Hashing round no: 4
+Hashing bucket no: 342
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 4
+Hashing bucket no: 343
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
+Hashing round no: 4
+Hashing bucket no: 344
+Total size is 0 pages.
+Total available pages are 5 pages.
+
+No matching tuple. No further processing required!
 Hashing round no: 2
 Hashing bucket no: 4
-Total size is 1 pages.
+Total size is 0 pages.
 Total available pages are 5 pages.
 
 No matching tuple. No further processing required!
